@@ -1,0 +1,27 @@
+def solveNQueens(n):
+    def isSafe(board, row, col):
+        for i in range(row):
+            if board[i] == col or abs(board[i] - col) == abs(i - row):
+                return False
+        return True
+
+    def solve(board, row):
+        if row == n:
+            result.append(["." * col + "Q" + "." * (n - col - 1) for col in board])
+            return
+        for col in range(n):
+            if isSafe(board, row, col):
+                board[row] = col
+                solve(board, row + 1)
+                board[row] = -1
+
+    result = []
+    solve([-1] * n, 0)
+    return result
+
+n = 8
+solutions = solveNQueens(n)
+for solution in solutions:
+    for row in solution:
+        print(row)
+    print()
